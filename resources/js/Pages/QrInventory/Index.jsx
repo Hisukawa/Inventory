@@ -40,7 +40,7 @@ const Index = () => {
                         <tr key={item.unique_id}>
                             <td className="px-4 py-2 border">
                                 <QRCodeCanvas
-                                    value={`${CONFIG_URL}/qrinventory/item.unique_id`}
+                                    value={`${CONFIG_URL}/qrinventory/${item.unique_id}`}
                                     size={200}
                                     bgColor="#ffffff"
                                     fgColor="#000000"
