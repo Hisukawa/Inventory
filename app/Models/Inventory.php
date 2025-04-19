@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class Inventory extends Model
 {
+    use HasFactory;
+
     // Allow mass assignment for these fields, including unique_id
     protected $fillable = [
         'unique_id',  // Use unique_id as your column name
