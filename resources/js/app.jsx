@@ -26,17 +26,3 @@ createInertiaApp({
         color: "#4B5563",
     },
 });
-
-const el = document.getElementById("app");
-const item = JSON.parse(el.dataset.item);
-
-function InventoryItem({ item }) {
-    return (
-        <div className="p-5">
-            <h1 className="text-2xl font-bold">{item.name}</h1>
-            <p>{item.description}</p>
-        </div>
-    );
-}
-
-ReactDOM.createRoot(el).render(<InventoryItem item={item} />);
