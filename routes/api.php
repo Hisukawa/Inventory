@@ -1,17 +1,11 @@
 <?php
 
-// use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\Main\QrInventoryController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
-// Route::post('/inventory', [InventoryController::class, 'store']);
-// Route::get('/inventory/{unique_id}', InventoryController::class, 'show');
+Route::get('/user', function (Request $request) {
+    return $request->user();
+})->middleware('auth:sanctum');
 
-
-
-
-// use Illuminate\Http\Request;
-// use Illuminate\Support\Facades\Route;
-
-// // Example test route
-// Route::get('/hello', function () {
-//     return response()->json(['message' => 'Hello from API!']);
-// });
+Route::get('getinventory', [QrInventoryController::class, 'getInventory']);

@@ -37,7 +37,10 @@ class InventoryController extends Controller
         // $qrCode = QrCode::size(250)->generate(url("/inventory/{$item->unique_id}"));
         $qrCode = QrCode::size(250)->generate(url("/inventory/{$item->unique_id}"));
 
-        return view('inventory.show', compact('item', 'qrCode')); // Use 'inventory.show' as the view
+        return view('inventory.show', [
+            'item' => $item,
+            'qrCode' => $qrCode,
+        ]);
     }
 
     public function index()

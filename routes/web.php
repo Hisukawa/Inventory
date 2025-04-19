@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\InventoryController;
+// use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\Main\QrInventoryController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -30,10 +31,12 @@ Route::middleware('auth')->group(function () {
 // Route::get('/inventory/{unique_id}', InventoryController::class, 'show');
 // Route::get('/inventory/{uuid}', [InventoryController::class, 'show']);
 
-Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory.index');
-Route::get('/inventory/{uuid}', [InventoryController::class, 'show'])->name('inventory.show'); //user
-Route::get('/admin/inventories', [InventoryController::class, 'adminIndex'])->name('inventory.admin'); //admin
+// Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory.index');
+// Route::get('/inventory/{uuid}', [InventoryController::class, 'show'])->name('inventory.show'); //user
+// Route::get('/admin/inventories', [InventoryController::class, 'adminIndex'])->name('inventory.admin'); //admin
 
+Route::get('/qrinventory', [QrInventoryController::class, 'getQrInventory']);
+Route::get('/qrinventory/{uuid}', [QrInventoryController::class, 'showInventory']); //user
 
 
 require __DIR__.'/auth.php';
