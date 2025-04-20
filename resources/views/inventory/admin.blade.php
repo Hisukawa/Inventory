@@ -1,4 +1,4 @@
-@extends('app')
+{{-- @extends('app')
 
 @section('content')
     <h1>Inventory List with QR Codes</h1>
@@ -21,4 +21,6 @@
             @endforeach
         </tbody>
     </table>
-@endsection
+@endsection --}}
+
+<!-- NOT USABLE -->

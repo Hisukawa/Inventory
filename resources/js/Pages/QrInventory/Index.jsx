@@ -29,16 +29,16 @@ const Index = () => {
                     <tr>
                         <th className="px-4 py-2 border">ID</th>
                         <th className="px-4 py-2 border">Name</th>
-                        <th className="px-4 py-2 border">Description</th>
+                        {/* <th className="px-4 py-2 border">Description</th>
                         <th className="px-4 py-2 border">Category</th>
                         <th className="px-4 py-2 border">Quantity</th>
-                        <th className="px-4 py-2 border">Status</th>
+                        <th className="px-4 py-2 border">Status</th> */}
                     </tr>
                 </thead>
                 <tbody>
                     {inventory.map((item) => (
                         <tr key={item.unique_id}>
-                            <td className="px-4 py-2 border">
+                            <td className="px-4 py-2 border justify-center">
                                 <QRCodeCanvas
                                     value={`${CONFIG_URL}/qrinventory/${item.unique_id}`}
                                     size={200}
@@ -49,7 +49,7 @@ const Index = () => {
                                 />
                             </td>
                             <td className="px-4 py-2 border">{item.name}</td>
-                            <td className="px-4 py-2 border">
+                            {/* <td className="px-4 py-2 border">
                                 {item.description}
                             </td>
                             <td className="px-4 py-2 border">
@@ -58,7 +58,7 @@ const Index = () => {
                             <td className="px-4 py-2 border">
                                 {item.quantity}
                             </td>
-                            <td className="px-4 py-2 border">{item.status}</td>
+                            <td className="px-4 py-2 border">{item.status}</td> */}
                         </tr>
                     ))}
                 </tbody>

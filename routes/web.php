@@ -35,8 +35,18 @@ Route::middleware('auth')->group(function () {
 // Route::get('/inventory/{uuid}', [InventoryController::class, 'show'])->name('inventory.show'); //user
 // Route::get('/admin/inventories', [InventoryController::class, 'adminIndex'])->name('inventory.admin'); //admin
 
+// Route::get('/qrinventory', [QrInventoryController::class, 'getQrInventory']);
+// Route::get('/qrinventory/{uuid}', [QrInventoryController::class, 'showInventory']); //user
+
+
+// Public route - for QR inventory index page (if needed to be public)
 Route::get('/qrinventory', [QrInventoryController::class, 'getQrInventory']);
-Route::get('/qrinventory/{uuid}', [QrInventoryController::class, 'showInventory']); //user
+
+// Secure the individual QR page with login
+Route::middleware(['auth'])->group(function () {
+    Route::get('/qrinventory/{uuid}', [QrInventoryController::class, 'showInventory']);
+});
+
 
 
 require __DIR__.'/auth.php';

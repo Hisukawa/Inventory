@@ -1,5 +1,5 @@
 <!-- resources/views/inventory/faculty-view.blade.php -->
-@extends('app')
+{{-- @extends('app')
 
 @section('content')
 <div class="container">
@@ -9,4 +9,7 @@
     <p><strong>Available Quantity:</strong> {{ $item->quantity }}</p>
     <p><strong>Status:</strong> {{ $item->status }}</p>
 </div>
-@endsection
+@endsection --}}
+
+
+{{-- NOT USEBALE --}}

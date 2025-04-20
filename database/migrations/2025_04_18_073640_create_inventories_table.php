@@ -31,3 +31,7 @@ return new class extends Migration
         Schema::dropIfExists('inventories');
     }
 };
+
+//================================================================================
+// NEEDED TO CONFIGURE CHANGE IT TO ROOM NUMBER THEN THE ROOM EQUIPMENTS
+//================================================================================

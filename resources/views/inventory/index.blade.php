@@ -1,5 +1,5 @@
 <!-- resources/views/inventory/show.blade.php -->
-@extends('app')
+{{-- @extends('app')
 
 @section('title', 'Inventory Item')
 
@@ -16,4 +16,7 @@
         @endforeach
     </div>
 </div>
-@endsection
+@endsection --}}
+
+
+{{-- NOT USEBALE --}}
