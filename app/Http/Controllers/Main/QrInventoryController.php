@@ -7,7 +7,7 @@ use App\Models\Inventory;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-use function Pest\Laravel\json;
+// use function Pest\Laravel\json;
 
 class QrInventoryController extends Controller
 {

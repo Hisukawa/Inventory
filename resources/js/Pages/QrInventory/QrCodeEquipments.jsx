@@ -42,7 +42,7 @@ const QrCodeEquipments = () => {
         fetchEquipment();
     }, []);
 
-    const header = "Other Equipments"; // Set the header here
+    const header = "Equipments";
 
     return (
         <SidebarProvider>
