@@ -1,6 +1,8 @@
 <?php
 
 // use App\Http\Controllers\InventoryController;
+
+use App\Http\Controllers\Main\EquipmentsController;
 use App\Http\Controllers\Main\QrInventoryController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -26,27 +28,18 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Route::get('/inventory/{unique_id}', [InventoryController::class, 'show'])->name('inventory.show');
-// Route::post('/inventory', [InventoryController::class, 'store']);
-// Route::get('/inventory/{unique_id}', InventoryController::class, 'show');
-// Route::get('/inventory/{uuid}', [InventoryController::class, 'show']);
-
-// Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory.index');
-// Route::get('/inventory/{uuid}', [InventoryController::class, 'show'])->name('inventory.show'); //user
-// Route::get('/admin/inventories', [InventoryController::class, 'adminIndex'])->name('inventory.admin'); //admin
-
-// Route::get('/qrinventory', [QrInventoryController::class, 'getQrInventory']);
-// Route::get('/qrinventory/{uuid}', [QrInventoryController::class, 'showInventory']); //user
-
-
 // Public route - for QR inventory index page (if needed to be public)
 Route::get('/qrinventory', [QrInventoryController::class, 'getQrInventory']);
+
+// Public route - for QR inventory index page (if needed to be public)
+Route::get('/equipments', [EquipmentsController::class, 'getQrEquipment']);
 
 // Secure the individual QR page with login
 Route::middleware(['auth'])->group(function () {
     Route::get('/qrinventory/{uuid}', [QrInventoryController::class, 'showInventory']);
-});
 
+    Route::get('/equipments/{uuid}', [EquipmentsController::class, 'showEquipment']);
+});
 
 
 require __DIR__.'/auth.php';

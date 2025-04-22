@@ -24,11 +24,15 @@ const Index = () => {
     return (
         <div className="p-6">
             <h1 className="text-2xl font-bold mb-4">Inventory Items</h1>
-            <table className="table-auto w-full border border-gray-300">
-                <thead className="bg-gray-100">
+            <table className="border-collapse border border-black bg-[#ffff99] w-full text-center mb-4">
+                <thead>
                     <tr>
-                        <th className="px-4 py-2 border">ID</th>
-                        <th className="px-4 py-2 border">Name</th>
+                        {/* <th className="py-2 text-xl text-black  font-bold border-b border-black">
+                            Name
+                        </th> */}
+                        {/* <th className="py-2 text-xl text-black  font-bold border-b border-black">
+                            QR Code
+                        </th> */}
                         {/* <th className="px-4 py-2 border">Description</th>
                         <th className="px-4 py-2 border">Category</th>
                         <th className="px-4 py-2 border">Quantity</th>
@@ -37,18 +41,23 @@ const Index = () => {
                 </thead>
                 <tbody>
                     {inventory.map((item) => (
-                        <tr key={item.unique_id}>
-                            <td className="px-4 py-2 border justify-center">
+                        <tr
+                            key={item.unique_id}
+                            className="border-b border-black last:border-b-0"
+                        >
+                            <td className="text-xl font-bold py-2 flex justify-center">
+                                {item.name}
+                            </td>
+                            <td className="py-2 pb-5 flex justify-center">
                                 <QRCodeCanvas
                                     value={`${CONFIG_URL}/qrinventory/${item.unique_id}`}
-                                    size={200}
+                                    size={300}
                                     bgColor="#ffffff"
                                     fgColor="#000000"
                                     level="H"
                                     includeMargin={true}
                                 />
                             </td>
-                            <td className="px-4 py-2 border">{item.name}</td>
                             {/* <td className="px-4 py-2 border">
                                 {item.description}
                             </td>
