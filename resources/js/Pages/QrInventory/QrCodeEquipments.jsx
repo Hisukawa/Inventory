@@ -67,16 +67,11 @@ const QrCodeEquipments = () => {
                     <h1 className="text-2xl font-bold text-center mb-4">
                         Room 204
                     </h1>
-                    <div className="p-6 flex justify-center ">
-                        <table className="border border-black bg-[#e0e0e0] p-10">
+                    <div className="p-6 flex justify-center">
+                        <table className="border border-black bg-[#e0e0e0] w-full p-2 sm:p-4 md:p-6 lg:p-10">
                             <thead>
                                 <tr>
-                                    {/* <th className="py-2 text-xl text-black font-bold border-b border-black">
-                                        Equipment Name
-                                    </th>
-                                    <th className="py-2 text-xl text-black font-bold border-b border-black">
-                                        QR Code
-                                    </th> */}
+                                    {/* Table headers can be added here if needed */}
                                 </tr>
                             </thead>
                             <tbody>
@@ -86,10 +81,10 @@ const QrCodeEquipments = () => {
                                         className="border-b border-black last:border-b-0"
                                     >
                                         {/* Display QR Code */}
-                                        <td className="p-10">
+                                        <td className="p-4 sm:p-6 md:p-10 flex justify-center">
                                             <QRCodeCanvas
                                                 value={`${CONFIG_URL}/room/${equipment.unique_id}`}
-                                                size={400}
+                                                size={250} // Adjusted size for responsiveness
                                                 bgColor="#ffffff"
                                                 fgColor="#000000"
                                                 level="H"
