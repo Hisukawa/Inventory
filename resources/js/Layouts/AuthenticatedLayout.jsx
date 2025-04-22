@@ -20,12 +20,9 @@ import {
     SidebarProvider,
     SidebarTrigger,
 } from "@/components/ui/sidebar";
-<<<<<<< HEAD
 import Index from "@/Pages/QrInventory/Index";
 import QrCodeEquipments from "@/Pages/QrInventory/QrCodeEquipments";
 import { useState } from "react";
-=======
->>>>>>> 20ca48dbac2f017b7794cf9312758a84150a3c42
 
 export default function AuthenticatedLayout({ header, children }) {
     const user = usePage().props.auth.user;
@@ -55,13 +52,10 @@ export default function AuthenticatedLayout({ header, children }) {
                     </header>
                 )}
 
-<<<<<<< HEAD
                 <main>
                     <Index />
                 </main>
-=======
                 <main>{children}</main>
->>>>>>> 20ca48dbac2f017b7794cf9312758a84150a3c42
             </SidebarInset>
         </SidebarProvider>
     );
