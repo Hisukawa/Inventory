@@ -1,0 +1,1 @@
+import{j as e,J as t}from"./app-DaJIVtHy.js";function r({children:s}){return e.jsxs("div",{className:"flex min-h-screen flex-col items-center bg-gray-100 pt-6 sm:justify-center sm:pt-0",children:[e.jsx("div",{children:e.jsx(t,{href:"/"})}),e.jsx("div",{className:"mt-6 w-full overflow-hidden bg-white px-6 py-4 shadow-md sm:max-w-md sm:rounded-lg",children:s})]})}export{r as G};
