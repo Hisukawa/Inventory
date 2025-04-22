@@ -51,9 +51,6 @@ export function NavMain() {
                                         <a href="/equipments">
                                             <span>Equipments</span>
                                         </a>
-                                        <a href="#">
-                                            <span>Other Equipments</span>
-                                        </a>
                                     </SidebarMenuSubButton>
                                 </SidebarMenuSubItem>
                             </SidebarMenuSub>
