@@ -40,7 +40,7 @@ export function NavMain() {
                             <SidebarMenuButton>
                                 {/* <Package /> */}
                                 <LayoutGrid />
-                                <span>Room</span>
+                                <span>Rooms</span>
                                 <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                             </SidebarMenuButton>
                         </CollapsibleTrigger>
@@ -53,8 +53,10 @@ export function NavMain() {
                                         </a>
                                     </SidebarMenuSubButton> */}
                                     <SidebarMenuSubButton>
-                                        <a href="/equipments">
-                                            <span>Equipments</span>
+                                        {/* <a href="/equipments"> */}
+                                        <a href="/room">
+                                            {/* <span>Equipments</span> */}
+                                            <span>Room 204</span>
                                         </a>
                                     </SidebarMenuSubButton>
                                 </SidebarMenuSubItem>

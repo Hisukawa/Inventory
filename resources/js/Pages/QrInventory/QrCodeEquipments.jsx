@@ -3,30 +3,24 @@ import axios from "axios";
 import { QRCodeCanvas } from "qrcode.react";
 import useAppUrl from "@/hooks/useAppUrl";
 
-import { Link, usePage } from "@inertiajs/react";
 import { AppSidebar } from "@/components/app-sidebar";
-import {
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbList,
-    BreadcrumbPage,
-    BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import { Separator } from "@/components/ui/separator";
 import {
     SidebarInset,
     SidebarProvider,
     SidebarTrigger,
 } from "@/components/ui/sidebar";
-import Index from "@/Pages/QrInventory/Index";
+import { Separator } from "@/components/ui/separator";
+import {
+    Breadcrumb,
+    BreadcrumbItem,
+    BreadcrumbLink,
+    BreadcrumbList,
+} from "@/components/ui/breadcrumb";
 
 const QrCodeEquipments = () => {
     const CONFIG_URL = useAppUrl();
 
     const [equipments, setEquipment] = useState([]);
-    // setEquipment(response.data);
-    // console.log(equipments); // See what is being fetched
 
     const fetchEquipment = async () => {
         try {
@@ -70,52 +64,38 @@ const QrCodeEquipments = () => {
                 )}
 
                 <main>
-                    <div className="p-6">
-                        <h1 className="text-2xl font-bold mb-4">Equipments</h1>
-                        <table className="border-collapse border border-black bg-[#ffff99] w-full text-center mb-4">
+                    <h1 className="text-2xl font-bold text-center mb-4">
+                        Room 204
+                    </h1>
+                    <div className="p-6 flex justify-center ">
+                        <table className="border border-black bg-[#e0e0e0] p-10">
                             <thead>
                                 <tr>
-                                    {/* <th className="py-2 text-xl text-black  font-bold border-b border-black">
-                            Name
-                        </th> */}
-                                    {/* <th className="py-2 text-xl text-black  font-bold border-b border-black">
-                            QR Code
-                        </th> */}
-                                    {/* <th className="px-4 py-2 border">Description</th>
-                        <th className="px-4 py-2 border">Category</th>
-                        <th className="px-4 py-2 border">Quantity</th>
-                        <th className="px-4 py-2 border">Status</th> */}
+                                    {/* <th className="py-2 text-xl text-black font-bold border-b border-black">
+                                        Equipment Name
+                                    </th>
+                                    <th className="py-2 text-xl text-black font-bold border-b border-black">
+                                        QR Code
+                                    </th> */}
                                 </tr>
                             </thead>
                             <tbody>
-                                {equipments.map((equipment) => (
+                                {equipments.slice(0, 1).map((equipment) => (
                                     <tr
                                         key={equipment.unique_id}
                                         className="border-b border-black last:border-b-0"
                                     >
-                                        <td className="text-xl font-bold py-2 flex justify-center">
-                                            {equipment.equipment_name}
-                                        </td>
-                                        <td className="py-2 pb-5 flex justify-center">
+                                        {/* Display QR Code */}
+                                        <td className="p-10">
                                             <QRCodeCanvas
                                                 value={`${CONFIG_URL}/qrinventory/${equipment.unique_id}`}
-                                                size={300}
+                                                size={400}
                                                 bgColor="#ffffff"
                                                 fgColor="#000000"
                                                 level="H"
                                                 includeMargin={true}
                                             />
                                         </td>
-                                        {/* <td className="px-4 py-2 border">
-                                {equipment.description}
-                            </td>
-                            <td className="px-4 py-2 border">
-                                {equipment.category}
-                            </td>
-                            <td className="px-4 py-2 border">
-                                {equipment.quantity}
-                            </td>
-                            <td className="px-4 py-2 border">{equipment.status}</td> */}
                                     </tr>
                                 ))}
                             </tbody>

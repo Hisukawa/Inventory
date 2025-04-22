@@ -33,13 +33,15 @@ Route::middleware('auth')->group(function () {
 Route::get('/qrinventory', [QrInventoryController::class, 'getQrInventory']);
 
 // Public route - for QR inventory index page (if needed to be public)
-Route::get('/equipments', [EquipmentsController::class, 'getQrEquipment']);
+// Route::get('/equipments', [EquipmentsController::class, 'getQrEquipment']);
+Route::get('/room', [EquipmentsController::class, 'getQrEquipment']);
 
 // Secure the individual QR page with login
 Route::middleware(['auth'])->group(function () {
     Route::get('/qrinventory/{uuid}', [QrInventoryController::class, 'showInventory']);
 
-    Route::get('/equipments/{uuid}', [EquipmentsController::class, 'showEquipment']);
+    // Route::get('/equipments/{uuid}', [EquipmentsController::class, 'showEquipment']);
+    Route::get('/room/{uuid}', [EquipmentsController::class, 'showEquipment']);
 });
 
 
