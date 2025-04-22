@@ -1,6 +1,6 @@
 import React from "react";
 
-const ShowQrCodeEquipments = () => {
+const ShowQrCodeEquipments = ({ equipment }) => {
     return (
         <div className="p-6 max-w-xl mx-auto bg-white rounded-xl shadow-md space-y-4">
             <h1 className="text-2xl font-bold">Equipment Details</h1>
