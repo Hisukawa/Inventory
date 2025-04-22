@@ -88,7 +88,7 @@ const QrCodeEquipments = () => {
                                         {/* Display QR Code */}
                                         <td className="p-10">
                                             <QRCodeCanvas
-                                                value={`${CONFIG_URL}/qrinventory/${equipment.unique_id}`}
+                                                value={`${CONFIG_URL}/room/${equipment.unique_id}`}
                                                 size={400}
                                                 bgColor="#ffffff"
                                                 fgColor="#000000"

@@ -1,1 +1,0 @@
-import{j as r,a as t}from"./app-DaJIVtHy.js";import{A as o}from"./AuthenticatedLayout-wUjOI7Fb.js";import"./app-sidebar-BTG3cITS.js";import"./index-CkPapemp.js";import"./useAppUrl-CX47OgKd.js";import"./Index-Dj-47PZi.js";function n(){return r.jsx(o,{header:r.jsx("h2",{children:" Dashboard "}),children:r.jsx(t,{})})}export{n as default};
