@@ -2,7 +2,7 @@ import React from "react";
 
 const ShowQrCodeEquipments = ({ equipment }) => {
     return (
-        <div className="p-6 max-w-xl mx-auto bg-white rounded-xl shadow-md space-y-4">
+        <div className="p-6 max-w-xl mx-auto bg-white rounded-xl m-5 shadow-md space-y-4">
             <h1 className="text-2xl font-bold">Equipment Details</h1>
             <div className="space-y-1">
                 <p>

@@ -55,7 +55,6 @@ export default function AuthenticatedLayout({ header, children }) {
                 <main>
                     <Index />
                 </main>
-                <main>{children}</main>
             </SidebarInset>
         </SidebarProvider>
     );
