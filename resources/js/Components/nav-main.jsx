@@ -27,14 +27,14 @@ import QrCodeEquipments from "@/Pages/QrInventory/QrCodeEquipments";
 export function NavMain() {
     return (
         <SidebarGroup>
+            <SidebarMenuSubButton className="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-md">
+                <a href="/dashboard">
+                    <span>Dashboard</span>
+                </a>
+            </SidebarMenuSubButton>
             <SidebarGroupLabel>Inventories</SidebarGroupLabel>
             <SidebarMenu>
                 <Collapsible>
-                    <SidebarMenuSubButton className="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-md">
-                        <a href="/dashboard">
-                            <span>Dashboard</span>
-                        </a>
-                    </SidebarMenuSubButton>
                     <SidebarMenuItem>
                         <CollapsibleTrigger asChild>
                             <SidebarMenuButton>
