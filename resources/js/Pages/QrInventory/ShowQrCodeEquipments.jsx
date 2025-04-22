@@ -1,5 +1,21 @@
 import React, { useState } from "react";
 
+import {
+    SidebarInset,
+    SidebarProvider,
+    SidebarTrigger,
+} from "@/components/ui/sidebar";
+import { Separator } from "@/components/ui/separator";
+import {
+    Breadcrumb,
+    BreadcrumbItem,
+    BreadcrumbLink,
+    BreadcrumbList,
+} from "@/components/ui/breadcrumb";
+import { AppSidebarFaculty } from "@/Components/app-sidebar_faculty";
+
+const header = "Rooms";
+
 const QrCodeEquipments = ({ equipment }) => {
     // Check if there is any equipment data
     if (!equipment || equipment.length === 0) {
@@ -60,99 +76,138 @@ const QrCodeEquipments = ({ equipment }) => {
     };
 
     return (
-        <div className="flex flex-col p-6 bg-white m-5">
-            <div>
-                <h1 className="text-2xl bg-neutral-200  p-4 text-center font-bold mb-4 rounded-md shadow-md">
-                    Equipment Inventory
-                </h1>
+        <SidebarProvider>
+            <AppSidebarFaculty />
+            <SidebarInset>
+                {header && (
+                    <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
+                        <div className="flex items-center gap-2 px-4">
+                            <SidebarTrigger className="-ml-1" />
+                            <Separator
+                                orientation="vertical"
+                                className="mr-2 h-4"
+                            />
+                            <Breadcrumb>
+                                <BreadcrumbList>
+                                    <BreadcrumbItem className="hidden md:block">
+                                        <BreadcrumbLink href="#">
+                                            {header}
+                                        </BreadcrumbLink>
+                                    </BreadcrumbItem>
+                                </BreadcrumbList>
+                            </Breadcrumb>
+                        </div>
+                    </header>
+                )}
+                <main>
+                    <div className="flex flex-col p-6 bg-white m-5">
+                        <div>
+                            <h1 className="text-2xl bg-neutral-200  p-4 text-center font-bold mb-4 rounded-md shadow-md">
+                                Equipment Inventory
+                            </h1>
 
-                {/* Details section always below the table */}
-                {selectedEquipment && (
-                    <div className="w-full max-w-md mx-auto mt-4 flex justify-center">
-                        <div className="w-full bg-gray-100 p-4 rounded-md shadow-md">
-                            <h2 className="text-lg bg-neutral-300 p-2 text-center font-bold mb-4 rounded-md shadow-md">
-                                Equipment Details
-                            </h2>
-                            <div className="space-y-2">
-                                <h3 className="text-xl text-center font-bold">
-                                    {selectedEquipment.equipment_name}
-                                </h3>
-                                <p>
-                                    <strong>Status:</strong>{" "}
-                                    <span
-                                        className={`font-bold ${getStatusTextColor(
-                                            selectedEquipment.status
-                                        )}`}
-                                    >
-                                        {selectedEquipment.status}
-                                    </span>
-                                </p>
-                                <p>
-                                    <strong>Serial Number:</strong>{" "}
-                                    {selectedEquipment.serial_number || "N/A"}
-                                </p>
-                                <p>
-                                    <strong>Category:</strong>{" "}
-                                    {selectedEquipment.category || "N/A"}
-                                </p>
-                                <p>
-                                    <strong>Room Location:</strong>{" "}
-                                    {selectedEquipment.room_location || "N/A"}
-                                </p>
-                                <p>
-                                    <strong>Manufacturer:</strong>{" "}
-                                    {selectedEquipment.manufacturer || "N/A"}
-                                </p>
-                            </div>
+                            {/* Details section always below the table */}
+                            {selectedEquipment && (
+                                <div className="w-full max-w-md mx-auto mt-4 flex justify-center">
+                                    <div className="w-full bg-gray-100 p-4 rounded-md shadow-md">
+                                        <h2 className="text-lg bg-neutral-300 p-2 text-center font-bold mb-4 rounded-md shadow-md">
+                                            Equipment Details
+                                        </h2>
+                                        <div className="space-y-2">
+                                            <h3 className="text-xl text-center font-bold">
+                                                {
+                                                    selectedEquipment.equipment_name
+                                                }
+                                            </h3>
+                                            <p>
+                                                <strong>Status:</strong>{" "}
+                                                <span
+                                                    className={`font-bold ${getStatusTextColor(
+                                                        selectedEquipment.status
+                                                    )}`}
+                                                >
+                                                    {selectedEquipment.status}
+                                                </span>
+                                            </p>
+                                            <p>
+                                                <strong>Serial Number:</strong>{" "}
+                                                {selectedEquipment.serial_number ||
+                                                    "N/A"}
+                                            </p>
+                                            <p>
+                                                <strong>Category:</strong>{" "}
+                                                {selectedEquipment.category ||
+                                                    "N/A"}
+                                            </p>
+                                            <p>
+                                                <strong>Room Location:</strong>{" "}
+                                                {selectedEquipment.room_location ||
+                                                    "N/A"}
+                                            </p>
+                                            <p>
+                                                <strong>Manufacturer:</strong>{" "}
+                                                {selectedEquipment.manufacturer ||
+                                                    "N/A"}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* Table for equipment data */}
+                            <table className="min-w-full rounded-lg table-auto text-sm mt-4 border-collapse shadow-md">
+                                <thead className="bg-gray-200">
+                                    <tr className="text-center font-bold ">
+                                        <th className="px-4 py-2 text-gray-700">
+                                            Equipment Name
+                                        </th>
+                                        <th className="px-4 py-2 text-gray-700">
+                                            Status
+                                        </th>
+                                        <th className="px-4 py-2 text-gray-700">
+                                            Action
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody className="text-center">
+                                    {/* Loop through the equipment_inventory */}
+                                    {equipment.map((equipments) => (
+                                        <React.Fragment key={equipments.id}>
+                                            <tr className="border-t hover:bg-gray-50">
+                                                <td className="border px-4 py-2">
+                                                    {equipments.equipment_name}
+                                                </td>
+                                                <td
+                                                    className={`border px-4 py-2 ${getStatusClass(
+                                                        equipments.status
+                                                    )}`}
+                                                >
+                                                    {equipments.status}
+                                                </td>
+                                                <td className="border px-4 py-2">
+                                                    <button
+                                                        className={`px-4 py-2 rounded-md text-xs ${getButtonClass(
+                                                            equipments
+                                                        )} hover:opacity-80 transition`}
+                                                        onClick={() =>
+                                                            handleShowDetails(
+                                                                equipments
+                                                            )
+                                                        }
+                                                    >
+                                                        Show Details
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </React.Fragment>
+                                    ))}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                )}
-
-                {/* Table for equipment data */}
-                <table className="min-w-full rounded-lg table-auto text-sm mt-4 border-collapse shadow-md">
-                    <thead className="bg-gray-200">
-                        <tr className="text-center font-bold ">
-                            <th className="px-4 py-2 text-gray-700">
-                                Equipment Name
-                            </th>
-                            <th className="px-4 py-2 text-gray-700">Status</th>
-                            <th className="px-4 py-2 text-gray-700">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody className="text-center">
-                        {/* Loop through the equipment_inventory */}
-                        {equipment.map((equipments) => (
-                            <React.Fragment key={equipments.id}>
-                                <tr className="border-t hover:bg-gray-50">
-                                    <td className="border px-4 py-2">
-                                        {equipments.equipment_name}
-                                    </td>
-                                    <td
-                                        className={`border px-4 py-2 ${getStatusClass(
-                                            equipments.status
-                                        )}`}
-                                    >
-                                        {equipments.status}
-                                    </td>
-                                    <td className="border px-4 py-2">
-                                        <button
-                                            className={`px-4 py-2 rounded-md text-xs ${getButtonClass(
-                                                equipments
-                                            )} hover:opacity-80 transition`}
-                                            onClick={() =>
-                                                handleShowDetails(equipments)
-                                            }
-                                        >
-                                            Show Details
-                                        </button>
-                                    </td>
-                                </tr>
-                            </React.Fragment>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-        </div>
+                </main>
+            </SidebarInset>
+        </SidebarProvider>
     );
 };
 

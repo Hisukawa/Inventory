@@ -1,0 +1,46 @@
+import{r as i,j as e}from"./app-DUJI8nfv.js";import{g as c,h as O,u as G,i as L,j as B,k as H,P as q,l as F,m as V,n as U,o as R,p as J,q as A,r as D,s as E,C as K,t as Q,v as W,w as X,D as Y,x as Z,y as ee,z as te,A as se,E as P,F as ae,G as ne,H as re,I as ie,J as oe,K as le,N as de,L as ce}from"./nav-user-CDC2O7DN.js";import"./index-XX-lmurB.js";import"./index-D35JgZg1.js";/**
+ * @license lucide-react v0.488.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const ue=[["path",{d:"M2 13a2 2 0 0 0 2-2V7a2 2 0 0 1 4 0v13a2 2 0 0 0 4 0V4a2 2 0 0 1 4 0v13a2 2 0 0 0 4 0v-4a2 2 0 0 1 2-2",key:"57tc96"}]],pe=c("audio-waveform",ue);/**
+ * @license lucide-react v0.488.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const he=[["path",{d:"M12 7v14",key:"1akyts"}],["path",{d:"M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z",key:"ruj8y"}]],me=c("book-open",he);/**
+ * @license lucide-react v0.488.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const xe=[["path",{d:"M12 8V4H8",key:"hb8ula"}],["rect",{width:"16",height:"12",x:"4",y:"8",rx:"2",key:"enze0r"}],["path",{d:"M2 14h2",key:"vft8re"}],["path",{d:"M20 14h2",key:"4cs60a"}],["path",{d:"M15 13v2",key:"1xurst"}],["path",{d:"M9 13v2",key:"rq6x2g"}]],be=c("bot",xe);/**
+ * @license lucide-react v0.488.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const ge=[["path",{d:"M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3",key:"11bfej"}]],fe=c("command",ge);/**
+ * @license lucide-react v0.488.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const ye=[["path",{d:"M7 2h10",key:"nczekb"}],["path",{d:"M5 6h14",key:"u2x4p"}],["rect",{width:"18",height:"12",x:"3",y:"10",rx:"2",key:"l0tzu3"}]],ve=c("gallery-vertical-end",ye);/**
+ * @license lucide-react v0.488.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const je=[["rect",{width:"7",height:"7",x:"3",y:"3",rx:"1",key:"1g98yp"}],["rect",{width:"7",height:"7",x:"14",y:"3",rx:"1",key:"6d4xhi"}],["rect",{width:"7",height:"7",x:"14",y:"14",rx:"1",key:"nxv5o0"}],["rect",{width:"7",height:"7",x:"3",y:"14",rx:"1",key:"1bb6yr"}]],Ce=c("layout-grid",je);/**
+ * @license lucide-react v0.488.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const Ne=[["path",{d:"M5 12h14",key:"1ays0h"}],["path",{d:"M12 5v14",key:"s699le"}]],Se=c("plus",Ne);/**
+ * @license lucide-react v0.488.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const Me=[["path",{d:"M20 7h-9",key:"3s1dr2"}],["path",{d:"M14 17H5",key:"gfn3mx"}],["circle",{cx:"17",cy:"17",r:"3",key:"18b49y"}],["circle",{cx:"7",cy:"7",r:"3",key:"dfmy0x"}]],ke=c("settings-2",Me);/**
+ * @license lucide-react v0.488.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const we=[["path",{d:"m7 11 2-2-2-2",key:"1lz0vl"}],["path",{d:"M11 13h4",key:"1p7l4v"}],["rect",{width:"18",height:"18",x:"3",y:"3",rx:"2",ry:"2",key:"1m3agn"}]],_e=c("square-terminal",we);var Re=["a","button","div","form","h2","h3","img","input","label","li","nav","ol","p","select","span","svg","ul"],y=Re.reduce((t,a)=>{const n=O(`Primitive.${a}`),r=i.forwardRef((s,o)=>{const{asChild:d,...p}=s,u=d?n:a;return typeof window<"u"&&(window[Symbol.for("radix-ui")]=!0),e.jsx(u,{...p,ref:o})});return r.displayName=`Primitive.${a}`,{...t,[a]:r}},{}),x="Collapsible",[Pe,qe]=L(x),[Ae,v]=Pe(x),I=i.forwardRef((t,a)=>{const{__scopeCollapsible:n,open:r,defaultOpen:s,disabled:o,onOpenChange:d,...p}=t,[u,h]=G({prop:r,defaultProp:s??!1,onChange:d,caller:x});return e.jsx(Ae,{scope:n,disabled:o,contentId:B(),open:u,onOpenToggle:i.useCallback(()=>h(b=>!b),[h]),children:e.jsx(y.div,{"data-state":C(u),"data-disabled":o?"":void 0,...p,ref:a})})});I.displayName=x;var T="CollapsibleTrigger",$=i.forwardRef((t,a)=>{const{__scopeCollapsible:n,...r}=t,s=v(T,n);return e.jsx(y.button,{type:"button","aria-controls":s.contentId,"aria-expanded":s.open||!1,"data-state":C(s.open),"data-disabled":s.disabled?"":void 0,disabled:s.disabled,...r,ref:a,onClick:H(t.onClick,s.onOpenToggle)})});$.displayName=T;var j="CollapsibleContent",z=i.forwardRef((t,a)=>{const{forceMount:n,...r}=t,s=v(j,t.__scopeCollapsible);return e.jsx(q,{present:n||s.open,children:({present:o})=>e.jsx(De,{...r,ref:a,present:o})})});z.displayName=j;var De=i.forwardRef((t,a)=>{const{__scopeCollapsible:n,present:r,children:s,...o}=t,d=v(j,n),[p,u]=i.useState(r),h=i.useRef(null),b=F(a,h),N=i.useRef(0),S=N.current,M=i.useRef(0),k=M.current,g=d.open||p,w=i.useRef(g),m=i.useRef(void 0);return i.useEffect(()=>{const l=requestAnimationFrame(()=>w.current=!1);return()=>cancelAnimationFrame(l)},[]),V(()=>{const l=h.current;if(l){m.current=m.current||{transitionDuration:l.style.transitionDuration,animationName:l.style.animationName},l.style.transitionDuration="0s",l.style.animationName="none";const _=l.getBoundingClientRect();N.current=_.height,M.current=_.width,w.current||(l.style.transitionDuration=m.current.transitionDuration,l.style.animationName=m.current.animationName),u(r)}},[d.open,r]),e.jsx(y.div,{"data-state":C(d.open),"data-disabled":d.disabled?"":void 0,id:d.contentId,hidden:!g,...o,ref:b,style:{"--radix-collapsible-content-height":S?`${S}px`:void 0,"--radix-collapsible-content-width":k?`${k}px`:void 0,...t.style},children:g&&s})});function C(t){return t?"open":"closed"}var Ee=I;const Ie=Ee,Te=$,$e=z;function ze(){return e.jsxs(U,{children:[e.jsx(R,{className:"flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-md",children:e.jsx("a",{href:"/dashboard",children:e.jsx("span",{children:"Dashboard"})})}),e.jsx(J,{children:"Inventories"}),e.jsx(A,{children:e.jsx(Ie,{children:e.jsxs(D,{children:[e.jsx(Te,{asChild:!0,children:e.jsxs(E,{children:[e.jsx(Ce,{}),e.jsx("span",{children:"Rooms"}),e.jsx(K,{className:"ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"})]})}),e.jsx($e,{children:e.jsx(Q,{children:e.jsx(W,{children:e.jsx(R,{children:e.jsx("a",{href:"/room",children:e.jsx("span",{children:"Room 204"})})})})})})]})})})]})}function Oe({teams:t}){const{isMobile:a}=X(),[n,r]=i.useState(t[0]);return n?e.jsx(A,{children:e.jsx(D,{children:e.jsxs(Y,{children:[e.jsx(Z,{asChild:!0,children:e.jsxs(E,{size:"lg",className:"data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground",children:[e.jsx("div",{className:"flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground",children:e.jsx(n.logo,{className:"size-4"})}),e.jsxs("div",{className:"grid flex-1 text-left text-sm leading-tight",children:[e.jsx("span",{className:"truncate font-semibold",children:n.name}),e.jsx("span",{className:"truncate text-xs",children:n.plan})]}),e.jsx(ee,{className:"ml-auto"})]})}),e.jsxs(te,{className:"w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg",align:"start",side:a?"bottom":"right",sideOffset:4,children:[e.jsx(se,{className:"text-xs text-muted-foreground",children:"Teams"}),t.map((s,o)=>e.jsxs(P,{onClick:()=>r(s),className:"gap-2 p-2",children:[e.jsx("div",{className:"flex size-6 items-center justify-center rounded-sm border",children:e.jsx(s.logo,{className:"size-4 shrink-0"})}),s.name,e.jsxs(ae,{children:["⌘",o+1]})]},s.name)),e.jsx(ne,{}),e.jsxs(P,{className:"gap-2 p-2",children:[e.jsx("div",{className:"flex size-6 items-center justify-center rounded-md border bg-background",children:e.jsx(Se,{className:"size-4"})}),e.jsx("div",{className:"font-medium text-muted-foreground",children:"Add team"})]})]})]})})}):null}const f={user:{name:"shadcn",email:"m@example.com",avatar:"/avatars/shadcn.jpg"},teams:[{name:"Acme Inc",logo:ve,plan:"Enterprise"},{name:"Acme Corp.",logo:pe,plan:"Startup"},{name:"Evil Corp.",logo:fe,plan:"Free"}],navMain:[{title:"Playground",url:"#",icon:_e,isActive:!0,items:[{title:"History",url:"#"},{title:"Starred",url:"#"},{title:"Settings",url:"#"}]},{title:"Models",url:"#",icon:be,items:[{title:"Genesis",url:"#"},{title:"Explorer",url:"#"},{title:"Quantum",url:"#"}]},{title:"Documentation",url:"#",icon:me,items:[{title:"Introduction",url:"#"},{title:"Get Started",url:"#"},{title:"Tutorials",url:"#"},{title:"Changelog",url:"#"}]},{title:"Settings",url:"#",icon:ke,items:[{title:"General",url:"#"},{title:"Team",url:"#"},{title:"Billing",url:"#"},{title:"Limits",url:"#"}]}]};function Fe({...t}){return e.jsxs(re,{collapsible:"icon",...t,children:[e.jsx(ie,{children:e.jsx(Oe,{teams:f.teams})}),e.jsx(oe,{children:e.jsx(ze,{items:f.navMain})}),e.jsx(le,{children:e.jsx(de,{user:f.user})}),e.jsx(ce,{})]})}export{Fe as A};
