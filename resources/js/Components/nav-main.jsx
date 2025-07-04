@@ -2,6 +2,7 @@
 
 "use client";
 
+import { useEffect, useState } from "react";
 import { ChevronRight } from "lucide-react";
 
 import {
@@ -21,20 +22,28 @@ import {
 } from "@/components/ui/sidebar";
 
 import { LayoutGrid } from "lucide-react";
-import { useState } from "react";
 import QrCodeEquipments from "@/Pages/QrInventory/QrCodeEquipments";
 
 export function NavMain() {
+    const [isRoomsOpen, setIsRoomsOpen] = useState(false);
+
+    useEffect(() => {
+        // Open the Rooms section when the path matches any room-related route
+        const path = window.location.pathname;
+        if (path.startsWith("/admin/rooms")) {
+            setIsRoomsOpen(true);
+        }
+    }, []);
     return (
         <SidebarGroup>
             <SidebarMenuSubButton className="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-md">
-                <a href="/dashboard">
-                    <span>Dashboard</span>
+                <a href="/">
+                    <span className="font-bold">Dashboard</span>
                 </a>
             </SidebarMenuSubButton>
             <SidebarGroupLabel>Inventories</SidebarGroupLabel>
             <SidebarMenu>
-                <Collapsible>
+                <Collapsible open={isRoomsOpen} onOpenChange={setIsRoomsOpen}>
                     <SidebarMenuItem>
                         <CollapsibleTrigger asChild>
                             <SidebarMenuButton>
@@ -54,11 +63,23 @@ export function NavMain() {
                                     </SidebarMenuSubButton> */}
                                     <SidebarMenuSubButton>
                                         {/* <a href="/equipments"> */}
-                                        <a href="/room">
+                                        <a href="/admin/rooms/create">
                                             {/* <span>Equipments</span> */}
-                                            <span>Room 204</span>
+                                            <span>Add Room</span>
                                         </a>
                                     </SidebarMenuSubButton>
+                                    <SidebarMenuSubButton>
+                                        <a href="/admin/rooms/list">
+                                            <span>All Rooms</span>
+                                        </a>
+                                    </SidebarMenuSubButton>
+                                    {/* <SidebarMenuSubButton> */}
+                                    {/* <a href="/equipments"> */}
+                                    {/* <a href="/room"> */}
+                                    {/* <span>Equipments</span> */}
+                                    {/* <span>Room 204</span> */}
+                                    {/* </a> */}
+                                    {/* </SidebarMenuSubButton> */}
                                 </SidebarMenuSubItem>
                             </SidebarMenuSub>
                         </CollapsibleContent>
