@@ -55,7 +55,7 @@ export default function EquipmentView({ equipment }) {
                             onClick={handleCopy}
                         >
                             <QRCode
-                                value={equipment.qr_code || ""}
+                                value={`${window.location.origin}/${equipment.qr_code}`}
                                 size={200}
                             />
                         </div>

@@ -20,19 +20,28 @@ export default function RoomList(props) {
     const { rooms } = props;
     const [showModal, setShowModal] = useState(false);
     const [selectedQr, setSelectedQr] = useState("");
-    const [selectedRoomName, setSelectedRoomName] = useState(""); // 🔧 ADDED
+    const [selectedRoomName, setSelectedRoomName] = useState("");
+
+    const [copied, setCopied] = useState(false);
 
     const openQrModal = (qrCodeValue, roomName) => {
-        // 🔧 CHANGED
         setSelectedQr(qrCodeValue);
-        setSelectedRoomName(roomName); // 🔧 ADDED
+        setSelectedRoomName(roomName);
         setShowModal(true);
     };
 
     const closeModal = () => {
         setShowModal(false);
         setSelectedQr("");
-        setSelectedRoomName(""); // 🔧 ADDED
+        setSelectedRoomName("");
+        setCopied(false);
+    };
+
+    const handleCopy = () => {
+        navigator.clipboard.writeText(selectedQr).then(() => {
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        });
     };
 
     return (
@@ -80,21 +89,17 @@ export default function RoomList(props) {
                                     className="flex justify-center cursor-pointer mb-2"
                                     onClick={() =>
                                         openQrModal(
-                                            `${window.location.origin}/${room.qr_code}`,
-                                            room.room_name // 🔧 ADDED
+                                            `${window.location.origin}/equipments/${room.qr_code}`,
+                                            room.room_name
                                         )
                                     }
                                     title="Click to enlarge"
                                 >
                                     <QRCode
-                                        value={`${window.location.origin}/${room.qr_code}`}
+                                        value={`${window.location.origin}/equipments/${room.qr_code}`}
                                         size={150}
                                     />
                                 </div>
-
-                                {/* <p className="text-sm text-gray-500 break-all">
-                                    {room.qr_code}
-                                </p> */}
 
                                 <div className="mt-4 flex justify-center gap-2">
                                     <a
@@ -124,7 +129,7 @@ export default function RoomList(props) {
                         ))}
                     </div>
 
-                    {/* ✅ Modal */}
+                    {/* ✅ QR Modal */}
                     {showModal && (
                         <div
                             className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50"
@@ -135,20 +140,23 @@ export default function RoomList(props) {
                                 onClick={(e) => e.stopPropagation()}
                             >
                                 <h2 className="text-lg font-bold mb-4 text-center">
-                                    {selectedRoomName} {/* 🔧 CHANGED */}
+                                    {selectedRoomName}
                                 </h2>
-                                <div className="flex justify-center mb-2">
+                                <div
+                                    className="flex justify-center mb-2 cursor-pointer"
+                                    onClick={handleCopy}
+                                    title="Click to copy QR URL"
+                                >
                                     <QRCode value={selectedQr} size={350} />
                                 </div>
                                 <p className="mt-2 text-sm text-gray-600 break-all text-center">
                                     {selectedQr}
                                 </p>
-                                {/* <button
-                                    onClick={closeModal}
-                                    className="mt-4 block mx-auto bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-600 transition"
-                                >
-                                    Close
-                                </button> */}
+                                {copied && (
+                                    <p className="text-green-600 text-center text-sm mt-1">
+                                        Copied to clipboard!
+                                    </p>
+                                )}
                             </div>
                         </div>
                     )}
