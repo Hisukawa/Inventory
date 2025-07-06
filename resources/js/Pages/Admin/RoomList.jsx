@@ -21,8 +21,7 @@ export default function RoomList(props) {
     const [showModal, setShowModal] = useState(false);
     const [selectedQr, setSelectedQr] = useState("");
     const [selectedRoomName, setSelectedRoomName] = useState("");
-
-    const [copied, setCopied] = useState(false);
+    const [copied, setCopied] = useState(false); // ✅ For clipboard
 
     const openQrModal = (qrCodeValue, roomName) => {
         setSelectedQr(qrCodeValue);
@@ -89,14 +88,14 @@ export default function RoomList(props) {
                                     className="flex justify-center cursor-pointer mb-2"
                                     onClick={() =>
                                         openQrModal(
-                                            `${window.location.origin}/equipments/${room.qr_code}`,
+                                            `${window.location.origin}/admin/rooms/${room.id}/equipments`,
                                             room.room_name
                                         )
                                     }
                                     title="Click to enlarge"
                                 >
                                     <QRCode
-                                        value={`${window.location.origin}/equipments/${room.qr_code}`}
+                                        value={`${window.location.origin}/admin/rooms/${room.id}/equipments`}
                                         size={150}
                                     />
                                 </div>
@@ -129,7 +128,7 @@ export default function RoomList(props) {
                         ))}
                     </div>
 
-                    {/* ✅ QR Modal */}
+                    {/* ✅ Modal */}
                     {showModal && (
                         <div
                             className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50"
@@ -145,7 +144,7 @@ export default function RoomList(props) {
                                 <div
                                     className="flex justify-center mb-2 cursor-pointer"
                                     onClick={handleCopy}
-                                    title="Click to copy QR URL"
+                                    title="Click to copy QR value"
                                 >
                                     <QRCode value={selectedQr} size={350} />
                                 </div>
@@ -153,7 +152,7 @@ export default function RoomList(props) {
                                     {selectedQr}
                                 </p>
                                 {copied && (
-                                    <p className="text-green-600 text-center text-sm mt-1">
+                                    <p className="text-green-600 text-sm text-center mt-1">
                                         Copied to clipboard!
                                     </p>
                                 )}
