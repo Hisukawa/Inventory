@@ -58,7 +58,8 @@ export default function RoomEquipmentList({ room, equipments }) {
                                         {equipment.equipment_name}
                                     </h2>
                                     <QRCode
-                                        value={equipment.equipment_path}
+                                        value={`https://kensqui.eskey22.com/equipment/${equipment.equipment_path}`}
+                                        // value={`https://localhost:8000/equipment/${equipment.equipment_path}`}
                                         size={150}
                                     />
                                     <p className="mt-2 text-sm text-gray-600 break-all">
