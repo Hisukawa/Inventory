@@ -36,7 +36,7 @@ class RoomController extends Controller
 
         $formatted = strtoupper(trim($request->room_number)); // e.g. 103
         $roomName = "ROOM-$formatted"; // This will be displayed in UI
-        $qrCodePath = strtolower("isu-ilagan/ict-department/room-$formatted"); // Clean URL-friendly QR content
+        $qrCodePath = strtolower("isu-ilagan_ict-department_room-$formatted"); // Clean URL-friendly QR content
 
         // 🛑 Check if room number already exists
         if (\App\Models\Room::where('room_number', $formatted)->exists()) {

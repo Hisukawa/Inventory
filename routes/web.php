@@ -12,6 +12,10 @@ use Inertia\Inertia;
 use App\Models\Room;
 use App\Http\Controllers\Admin\RoomController;
 
+use App\Http\Controllers\Admin\EquipmentController;
+
+use App\Http\Controllers\Admin\RoomEquipmentController;
+
 Route::get('/', function () {
     // return Inertia::render('Welcome', [
     //     'canLogin' => Route::has('login'),
@@ -56,6 +60,11 @@ Route::middleware(['auth'])->group(function () {
 // });
 
 
+
+// ============================================================================
+//                                  ROOMS
+// ============================================================================
+
 // Inertia route to render the JSX page
 Route::middleware(['auth'])->get('/admin/rooms/create', function () {
     return Inertia::render('Admin/RoomForm');
@@ -81,6 +90,11 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::delete('/rooms/{id}', [RoomController::class, 'destroy'])->name('rooms.destroy'); // ✅ DELETE Route
 });
 
+Route::get('/{qr_code}', function ($qr_code) {
+    $room = \App\Models\Room::where('qr_code', $qr_code)->firstOrFail();
+    return Inertia::render('RoomPublicView', ['room' => $room]);
+})->where('qr_code', 'isu-ilagan_ict-department_room-[0-9]+');
+
 // Route::get('/rooms/isu-ilagan/ict-department/room-{number}', function ($number) {
 //     $roomName = 'ISU-ILAGAN/ICT-DEPARTMENT/ROOM-' . strtoupper($number);
 //     $room = \App\Models\Room::where('room_name', $roomName)->firstOrFail();
@@ -96,10 +110,55 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 //     return Inertia::render('RoomPublicView', ['room' => $room]);
 // });
 
-Route::get('/{qr_code}', function ($qr_code) {
-    $room = \App\Models\Room::where('qr_code', $qr_code)->firstOrFail();
-    return Inertia::render('RoomPublicView', ['room' => $room]);
-})->where('qr_code', 'isu-ilagan/ict-department/room-[0-9]+');
+
+
+
+// ============================================================================
+//                                  EQUIPMENTS
+// ============================================================================
+
+// Form and List
+Route::middleware(['auth'])->get('/admin/equipments/create', function () {
+    $rooms = \App\Models\Room::select('room_number')->get(); // for dropdown
+    return Inertia::render('Admin/EquipmentForm', ['rooms' => $rooms]);
+})->name('equipments.create');
+
+Route::middleware(['auth'])->post('/admin/equipments', [\App\Http\Controllers\Admin\EquipmentController::class, 'store'])->name('equipments.store');
+
+Route::middleware(['auth'])->get('/admin/equipments/list', function () {
+    $equipments = \App\Models\Equipment::all();
+    return Inertia::render('Admin/EquipmentList', ['equipments' => $equipments]);
+})->name('equipments.list');
+
+// 🔥 This is the public/QR Code route
+Route::get('/equipment/{room}/{department}/{subroom}/{equipment}', function ($room, $department, $subroom, $equipment) {
+    $path = "$room/$department/$subroom/$equipment";
+    $equipment = \App\Models\Equipment::where('equipment_path', $path)->firstOrFail();
+
+    // 🔧 FIXED: Correct render path for JSX file inside Equipments folder
+    return Inertia::render('Equipments/equipment', ['equipment' => $equipment]);
+});
+
+
+Route::middleware(['auth'])->prefix('admin')->group(function () {
+    Route::post('/equipment', [EquipmentController::class, 'store'])->name('equipment.store');
+});
+
+
+// ============================================================================
+//                                  ROOM EQUIPMENTS
+// ============================================================================
+
+Route::get('/admin/rooms/{room}/equipments', [RoomEquipmentController::class, 'index'])
+    ->name('rooms.equipments');
+
+// Route::get('/admin/rooms/{room}/equipments', [RoomEquipmentController::class, 'index']);
+
+Route::get('/equipment/{campus}/{department}/{room}/{equipment}', [EquipmentController::class, 'showByPath'])
+    ->name('equipment.view');
+
+
+
 
 
 require __DIR__.'/auth.php';
