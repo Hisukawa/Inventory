@@ -136,7 +136,7 @@ export default function EquipmentView({ equipment }) {
                         </div>
 
                         {/* Optional: QR Code Display */}
-                        <div className="mt-8 text-center">
+                        {/* <div className="mt-8 text-center">
                             <h2 className="text-lg font-semibold mb-2">
                                 QR Code
                             </h2>
@@ -149,7 +149,7 @@ export default function EquipmentView({ equipment }) {
                             >
                                 {copied ? "Copied!" : "Click to copy QR path"}
                             </p>
-                        </div>
+                        </div> */}
                     </div>
                 </main>
             </SidebarInset>

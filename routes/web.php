@@ -29,7 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// QR inventory
+// QR inventory (public and protected versions)
 Route::get('/qrinventory', [QrInventoryController::class, 'getQrInventory']);
 Route::get('/room', [EquipmentsController::class, 'getQrEquipment']);
 
@@ -55,7 +55,7 @@ Route::middleware(['auth'])->get('/admin/rooms/list', function () {
     return Inertia::render('Admin/RoomList', ['rooms' => $rooms]);
 })->name('rooms.list');
 
-// Optional: route to show room via QR path
+// Optional: route to show room via QR path (⚠️ currently public)
 Route::get('/{qr_code}', function ($qr_code) {
     $room = \App\Models\Room::where('qr_code', $qr_code)->firstOrFail();
     return Inertia::render('RoomPublicView', ['room' => $room]);
@@ -77,17 +77,14 @@ Route::middleware(['auth'])->get('/admin/equipments/list', function () {
 })->name('equipments.list');
 
 // Equipment Edit
-Route::post('/admin/equipments', [EquipmentController::class, 'store'])->name('equipments.store');
 Route::middleware(['auth'])->get('/admin/equipments/{id}/edit', [EquipmentController::class, 'edit'])->name('equipments.edit');
 Route::middleware(['auth'])->put('/admin/equipments/{id}', [EquipmentController::class, 'update'])->name('equipments.update');
 
-
-
 // Room Equipment list view
-Route::get('/admin/rooms/{room}/equipments', [RoomEquipmentController::class, 'index'])->name('rooms.equipments');
+Route::middleware(['auth'])->get('/admin/rooms/{room}/equipments', [RoomEquipmentController::class, 'index'])->name('rooms.equipments');
 
-// ✅ CORRECT: Equipment detail page via QR code / link
-Route::get('/equipment/{campus}/{department}/{room}/{equipment}', [EquipmentController::class, 'showByPath'])
+// ✅ Equipment detail page via QR code (PROTECTED by auth now)
+Route::middleware(['auth'])->get('/equipment/{campus}/{department}/{room}/{equipment}', [EquipmentController::class, 'showByPath'])
     ->where([
         'campus' => '[a-zA-Z0-9\-]+',
         'department' => '[a-zA-Z0-9\-]+',
@@ -95,7 +92,6 @@ Route::get('/equipment/{campus}/{department}/{room}/{equipment}', [EquipmentCont
         'equipment' => '[a-zA-Z0-9\-]+',
     ])
     ->name('equipment.view');
-
 
 // ============================================================================
 // ADMIN - USERS CRUD
