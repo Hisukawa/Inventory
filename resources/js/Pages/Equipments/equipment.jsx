@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { usePage } from "@inertiajs/react";
+import React, { useState } from "react";
 import QRCode from "react-qr-code";
 
 import { AppSidebar } from "@/components/app-sidebar";
@@ -26,6 +25,9 @@ export default function EquipmentView({ equipment }) {
         });
     };
 
+    // ✅ Pull specification fields from the JSON column
+    const { specifications = {}, room } = equipment;
+
     return (
         <SidebarProvider>
             <AppSidebar />
@@ -45,33 +47,107 @@ export default function EquipmentView({ equipment }) {
                 </header>
 
                 <main className="p-6">
-                    <div className="max-w-xl mx-auto p-6 bg-white rounded shadow text-center">
-                        <h1 className="text-2xl font-bold mb-4">
-                            {equipment.equipment_name}
+                    <div className="max-w-xl mx-auto p-6 bg-white rounded shadow">
+                        <h1 className="text-2xl font-bold mb-6 text-center">
+                            Equipment Details
                         </h1>
 
-                        <div
-                            className="inline-block bg-white p-4 border rounded shadow cursor-pointer"
-                            onClick={handleCopy}
-                        >
-                            <QRCode
-                                value={`${window.location.origin}/${equipment.qr_code}`}
-                                size={200}
-                            />
-                        </div>
-                        <p className="mt-2 text-sm text-gray-600 break-all">
-                            {equipment.qr_code}
-                        </p>
-                        {copied && (
-                            <p className="text-green-600 text-sm mt-1">
-                                Copied to clipboard!
-                            </p>
-                        )}
+                        <div className="grid grid-cols-1 gap-4 text-sm">
+                            <div>
+                                <span className="font-semibold text-gray-700">
+                                    Equipment Name:
+                                </span>
+                                <p className="text-gray-900">
+                                    {equipment.equipment_name}
+                                </p>
+                            </div>
 
-                        <div className="mt-4">
-                            <p className="text-gray-700">
-                                <strong>Room:</strong>{" "}
-                                {equipment.room?.room_name || "Unknown"}
+                            <div>
+                                <span className="font-semibold text-gray-700">
+                                    Room:
+                                </span>
+                                <p className="text-gray-900">
+                                    {room?.room_name || "Unknown"}
+                                </p>
+                            </div>
+
+                            <div>
+                                <span className="font-semibold text-gray-700">
+                                    Equipment ID / QR Code:
+                                </span>
+                                <p className="text-gray-900 break-all">
+                                    {equipment.qr_code}
+                                </p>
+                            </div>
+
+                            <div>
+                                <span className="font-semibold text-gray-700">
+                                    Brand:
+                                </span>
+                                <p className="text-gray-900">
+                                    {specifications.brand || "—"}
+                                </p>
+                            </div>
+
+                            <div>
+                                <span className="font-semibold text-gray-700">
+                                    Processor:
+                                </span>
+                                <p className="text-gray-900">
+                                    {specifications.processor || "—"}
+                                </p>
+                            </div>
+
+                            <div>
+                                <span className="font-semibold text-gray-700">
+                                    RAM:
+                                </span>
+                                <p className="text-gray-900">
+                                    {specifications.ram || "—"}
+                                </p>
+                            </div>
+
+                            <div>
+                                <span className="font-semibold text-gray-700">
+                                    Storage:
+                                </span>
+                                <p className="text-gray-900">
+                                    {specifications.storage || "—"}
+                                </p>
+                            </div>
+
+                            <div>
+                                <span className="font-semibold text-gray-700">
+                                    Operating System:
+                                </span>
+                                <p className="text-gray-900">
+                                    {specifications.os || "—"}
+                                </p>
+                            </div>
+
+                            <div>
+                                <span className="font-semibold text-gray-700">
+                                    Status:
+                                </span>
+                                <p className="text-gray-900">
+                                    {equipment.status || "Active"}
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Optional: QR Code Display */}
+                        <div className="mt-8 text-center">
+                            <h2 className="text-lg font-semibold mb-2">
+                                QR Code
+                            </h2>
+                            <div className="inline-block bg-white p-4 border rounded shadow">
+                                <QRCode value={equipment.qr_code} size={180} />
+                            </div>
+                            <p
+                                className="mt-2 text-sm text-gray-600 cursor-pointer"
+                                onClick={handleCopy}
+                            >
+                                {copied ? "Copied!" : "Click to copy QR path"}
                             </p>
                         </div>
                     </div>

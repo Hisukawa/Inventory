@@ -26,6 +26,13 @@ import {
     SidebarRail,
 } from "@/components/ui/sidebar";
 
+import { UserPlus } from "lucide-react";
+import { Users } from "lucide-react";
+import { Building2 } from "lucide-react";
+import { LayoutPanelTop } from "lucide-react";
+import { ListTree } from "lucide-react";
+import { MonitorSmartphone } from "lucide-react";
+
 // This is sample data.
 const data = {
     user: {
@@ -139,20 +146,20 @@ const data = {
     ],
     projects: [
         {
-            name: "Design Engineering",
-            url: "#",
-            icon: Frame,
+            name: "Add User",
+            url: "/admin/users/create", // ✅ Actual route for creating user
+            icon: UserPlus,
         },
         {
-            name: "Sales & Marketing",
-            url: "#",
-            icon: PieChart,
+            name: "User Lists",
+            url: "/admin/users",
+            icon: Users,
         },
-        {
-            name: "Travel",
-            url: "#",
-            icon: Map,
-        },
+        // {
+        //     name: "Travel",
+        //     url: "#",
+        //     icon: Map,
+        // },
     ],
 };
 
@@ -165,7 +172,7 @@ export function AppSidebar({ ...props }) {
             <SidebarContent>
                 <NavMain items={data.navMain} />
                 <NavMainEquipment items={data.NavMainEquipment} />
-                {/* <NavProjects projects={data.projects} /> */}
+                <NavProjects projects={data.projects} />
             </SidebarContent>
             <SidebarFooter>
                 <NavUser user={data.user} />

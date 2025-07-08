@@ -79,6 +79,9 @@ export default function RoomEquipmentList({ room, equipments }) {
                                     <h2 className="text-lg font-semibold mb-2">
                                         {equipment.equipment_name}
                                     </h2>
+                                    {console.log(
+                                        `${window.location.origin}/equipment/${equipment.equipment_path}`
+                                    )}
                                     <div
                                         className="flex justify-center cursor-pointer mb-2"
                                         onClick={() =>

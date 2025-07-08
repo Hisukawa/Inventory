@@ -20,27 +20,83 @@ class EquipmentController extends Controller
         try {
             $room = Room::findOrFail($request->room_id);
 
-            $equipmentName = strtolower(trim($request->equipment_name)); // pc-01
-            $roomPath = $room->qr_code; // e.g. isu-ilagan/ict-department/room-103
-            $fullPath = $roomPath . '/' . $equipmentName; // final path
+            $equipmentName = strtolower(trim($request->equipment_name)); // e.g. pc-01
+
+            // ✅ FIX: Ensure qr_code uses slashes not underscores
+            $roomPath = str_replace('_', '/', $room->qr_code); // convert _ to /
+            $fullPath = $roomPath . '/' . $equipmentName;
 
             Equipment::create([
-                'equipment_name' => strtoupper(trim($request->equipment_name)), // stored capitalized
+                'equipment_name' => strtoupper(trim($request->equipment_name)),
                 'room_id' => $room->id,
                 'equipment_path' => $fullPath,
+                'specifications' => [
+                    'brand' => $request->brand,
+                    'processor' => $request->processor,
+                    'ram' => $request->ram,
+                    'storage' => $request->storage,
+                    'os' => $request->os,
+                ],
             ]);
 
             return redirect()->back()->with('success', 'Equipment added successfully!');
         } catch (QueryException $e) {
             if ($e->errorInfo[1] === 1062) {
-                // Duplicate entry error
                 return redirect()->back()->withErrors([
                     'equipment_name' => 'This equipment already exists in that room.'
                 ]);
             }
 
-            throw $e; // Let Laravel handle other database errors
+            throw $e;
         }
+    }
+
+    public function edit($id)
+    {
+        $equipment = Equipment::with('room')->findOrFail($id);
+
+        return inertia('Equipments/EditEquipmentForm', [
+            'equipment' => [
+                'id' => $equipment->id,
+                'equipment_name' => $equipment->equipment_name,
+                'room' => $equipment->room,
+                'room_id' => $equipment->room_id,
+                'equipment_path' => $equipment->equipment_path,
+                'specifications' => $equipment->specifications ?? [],
+            ],
+            'rooms' => Room::all()
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'equipment_name' => 'required|string|max:255',
+            'room_id' => 'required|exists:rooms,id',
+        ]);
+
+        $equipment = Equipment::findOrFail($id);
+        $room = Room::findOrFail($request->room_id);
+
+        $formattedName = strtolower(trim($request->equipment_name));
+
+        // ✅ FIX: Replace _ with / from the room's stored qr_code
+        $newPath = str_replace('_', '/', $room->qr_code) . '/' . $formattedName;
+
+        $equipment->update([
+            'equipment_name' => strtoupper(trim($request->equipment_name)),
+            'room_id' => $room->id,
+            'equipment_path' => $newPath,
+            'specifications' => [
+                'brand' => $request->brand,
+                'processor' => $request->processor,
+                'ram' => $request->ram,
+                'storage' => $request->storage,
+                'os' => $request->os,
+            ],
+        ]);
+
+        return redirect()->route('equipments.list')->with('success', 'Equipment updated successfully!');
     }
 
     public function listByRoom($roomId)
@@ -59,12 +115,17 @@ class EquipmentController extends Controller
 
         $equipment = Equipment::with('room')->where('equipment_path', $fullPath)->firstOrFail();
 
-        return inertia('Equipments/equipment', [
+        return inertia('Equipments/Equipment', [
             'equipment' => [
                 'equipment_name' => $equipment->equipment_name,
                 'equipment_path' => $equipment->equipment_path,
-                'qr_code' => $equipment->equipment_path, // ✅ required by frontend
+                'qr_code' => $equipment->equipment_path,
                 'room' => $equipment->room,
+                'brand' => $equipment->specifications['brand'] ?? null,
+                'processor' => $equipment->specifications['processor'] ?? null,
+                'ram' => $equipment->specifications['ram'] ?? null,
+                'storage' => $equipment->specifications['storage'] ?? null,
+                'os' => $equipment->specifications['os'] ?? null,
             ],
         ]);
     }

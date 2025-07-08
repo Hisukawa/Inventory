@@ -24,11 +24,20 @@ export default function EquipmentForm() {
     const [qrCodeText, setQrCodeText] = useState(null);
     const [message, setMessage] = useState("");
 
+    const [brand, setBrand] = useState("");
+    const [processor, setProcessor] = useState("");
+    const [ram, setRam] = useState("");
+    const [storage, setStorage] = useState("");
+    const [os, setOs] = useState("");
+
+    // ✅ For Option 3: Same as last equipment
+    const [sameAsLast, setSameAsLast] = useState(false);
+    const [lastSpecs, setLastSpecs] = useState(null);
+
     useEffect(() => {
         fetch("/api/rooms")
             .then((res) => res.json())
             .then((data) => {
-                console.log("Loaded rooms:", data);
                 setRooms(data);
                 setFilteredRooms(data);
             });
@@ -60,21 +69,35 @@ export default function EquipmentForm() {
         }
 
         const formattedEquipment = equipmentName.trim().toLowerCase();
-        const qrPath = `${selectedRoom.qr_code}/${formattedEquipment}`; // final ID format
+        const qrPath = `${selectedRoom.qr_code}/${formattedEquipment}`;
 
         router.post(
-            "/admin/equipment",
+            "/admin/equipments",
             {
                 room_id: selectedRoom.id,
                 equipment_name: equipmentName,
-                qr_code: qrPath,
+                brand,
+                processor,
+                ram,
+                storage,
+                os,
             },
             {
                 onSuccess: () => {
                     setQrCodeText(qrPath);
                     setMessage("Equipment added successfully!");
                     setEquipmentName("");
+
+                    if (!sameAsLast) {
+                        setBrand("");
+                        setProcessor("");
+                        setRam("");
+                        setStorage("");
+                        setOs("");
+                    }
+
                     setRoomId("");
+                    setLastSpecs({ brand, processor, ram, storage, os });
                 },
                 onError: (errors) => {
                     const errorMessage =
@@ -98,7 +121,7 @@ export default function EquipmentForm() {
                     <Breadcrumb>
                         <BreadcrumbList>
                             <BreadcrumbItem>
-                                <BreadcrumbLink href="/admin/equipment/create">
+                                <BreadcrumbLink href="/admin/equipments/create">
                                     Equipment Management
                                 </BreadcrumbLink>
                             </BreadcrumbItem>
@@ -154,6 +177,84 @@ export default function EquipmentForm() {
                                 placeholder="e.g. PC-01"
                                 className="border p-2 w-full mb-4 rounded"
                                 required
+                            />
+
+                            {/* ✅ Same as Last Checkbox */}
+                            <div className="mb-4">
+                                <label className="inline-flex items-center">
+                                    <input
+                                        type="checkbox"
+                                        checked={sameAsLast}
+                                        onChange={(e) => {
+                                            setSameAsLast(e.target.checked);
+                                            if (e.target.checked && lastSpecs) {
+                                                setBrand(lastSpecs.brand || "");
+                                                setProcessor(
+                                                    lastSpecs.processor || ""
+                                                );
+                                                setRam(lastSpecs.ram || "");
+                                                setStorage(
+                                                    lastSpecs.storage || ""
+                                                );
+                                                setOs(lastSpecs.os || "");
+                                            }
+                                        }}
+                                        className="mr-2"
+                                    />
+                                    Use same specifications as previous
+                                    equipment
+                                </label>
+                            </div>
+
+                            {/* 🔧 Specification Fields */}
+                            <label className="block mb-1 font-medium">
+                                Brand
+                            </label>
+                            <input
+                                type="text"
+                                value={brand}
+                                onChange={(e) => setBrand(e.target.value)}
+                                className="border p-2 w-full mb-4 rounded"
+                            />
+
+                            <label className="block mb-1 font-medium">
+                                Processor
+                            </label>
+                            <input
+                                type="text"
+                                value={processor}
+                                onChange={(e) => setProcessor(e.target.value)}
+                                className="border p-2 w-full mb-4 rounded"
+                            />
+
+                            <label className="block mb-1 font-medium">
+                                RAM
+                            </label>
+                            <input
+                                type="text"
+                                value={ram}
+                                onChange={(e) => setRam(e.target.value)}
+                                className="border p-2 w-full mb-4 rounded"
+                            />
+
+                            <label className="block mb-1 font-medium">
+                                Storage
+                            </label>
+                            <input
+                                type="text"
+                                value={storage}
+                                onChange={(e) => setStorage(e.target.value)}
+                                className="border p-2 w-full mb-4 rounded"
+                            />
+
+                            <label className="block mb-1 font-medium">
+                                Operating System
+                            </label>
+                            <input
+                                type="text"
+                                value={os}
+                                onChange={(e) => setOs(e.target.value)}
+                                className="border p-2 w-full mb-4 rounded"
                             />
 
                             <div className="text-end">

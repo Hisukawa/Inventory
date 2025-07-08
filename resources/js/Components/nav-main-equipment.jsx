@@ -62,11 +62,11 @@ export function NavMainEquipment() {
                                             <span>Add Equipments</span>
                                         </a>
                                     </SidebarMenuSubButton>
-                                    <SidebarMenuSubButton>
+                                    {/* <SidebarMenuSubButton>
                                         <a href="/admin/equipments/list">
                                             <span>All Equipments</span>
                                         </a>
-                                    </SidebarMenuSubButton>
+                                    </SidebarMenuSubButton> */}
                                     {/* <SidebarMenuSubButton> */}
                                     {/* <a href="/equipments"> */}
                                     {/* <a href="/room"> */}
