@@ -72,6 +72,7 @@ export default function UserList({ users, authUserId }) {
                         <table className="min-w-full border text-sm">
                             <thead>
                                 <tr className="bg-gray-100 text-left">
+                                    <th className="border px-4 py-2">#</th>
                                     <th className="border px-4 py-2">Name</th>
                                     <th className="border px-4 py-2">Email</th>
                                     <th className="border px-4 py-2">Role</th>
