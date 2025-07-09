@@ -2,42 +2,45 @@
 
 "use client";
 
-import {
-    BadgeCheck,
-    Bell,
-    ChevronsUpDown,
-    CreditCard,
-    LogOut,
-    Sparkles,
-} from "lucide-react";
+import { ChevronsUpDown, LogOut, User } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
     DropdownMenu,
     DropdownMenuContent,
-    DropdownMenuGroup,
     DropdownMenuItem,
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+
 import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
     useSidebar,
 } from "@/components/ui/sidebar";
-import { router } from "@inertiajs/react";
 
-import { usePage } from "@inertiajs/react";
-
-import { User } from "lucide-react";
+import { router, usePage } from "@inertiajs/react";
 
 export function NavUser() {
     const { isMobile } = useSidebar();
-
     const { props } = usePage();
-    const user = props.auth.user;
+
+    // ✅ Prevent crashing if auth or user is undefined
+    const user = props?.auth?.user;
+
+    if (!user) {
+        return (
+            <SidebarMenu>
+                <SidebarMenuItem>
+                    <SidebarMenuButton className="justify-center text-muted">
+                        Loading...
+                    </SidebarMenuButton>
+                </SidebarMenuItem>
+            </SidebarMenu>
+        );
+    }
 
     return (
         <SidebarMenu>
@@ -68,6 +71,7 @@ export function NavUser() {
                             <ChevronsUpDown className="ml-auto size-4" />
                         </SidebarMenuButton>
                     </DropdownMenuTrigger>
+
                     <DropdownMenuContent
                         className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
                         side={isMobile ? "bottom" : "right"}
@@ -78,10 +82,6 @@ export function NavUser() {
                             <DropdownMenuItem>
                                 <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                                     <Avatar className="h-8 w-8 rounded-lg">
-                                        {/* <AvatarImage
-                                        src={user.avatar}
-                                        alt={user.name}
-                                    /> */}
                                         <AvatarFallback className="rounded-lg">
                                             <User />
                                         </AvatarFallback>
@@ -100,14 +100,6 @@ export function NavUser() {
 
                         <DropdownMenuSeparator />
 
-                        {/* <DropdownMenuGroup>
-                            <DropdownMenuItem>
-                                <Sparkles />
-                                Profile
-                            </DropdownMenuItem>
-                        </DropdownMenuGroup>
-                        <DropdownMenuSeparator />*/}
-
                         <DropdownMenuItem
                             as="button"
                             onClick={() => {
@@ -115,7 +107,7 @@ export function NavUser() {
                             }}
                             className="flex items-center gap-2"
                         >
-                            <LogOut /> {/* Logout ICON */}
+                            <LogOut />
                             Log out
                         </DropdownMenuItem>
                     </DropdownMenuContent>
