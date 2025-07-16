@@ -74,7 +74,7 @@ Route::middleware(['auth', 'permission:manage_equipment'])->get('/admin/equipmen
 
 Route::middleware(['auth', 'permission:manage_equipment'])->post('/admin/equipments', [EquipmentController::class, 'store'])->name('equipments.store');
 
-Route::middleware(['auth'])->get('/admin/equipments/list', function () {
+Route::middleware(['auth', 'permission:manage_equipment'])->get('/admin/equipments/list', function () {
     $equipments = \App\Models\Equipment::all();
     return Inertia::render('Admin/EquipmentList', ['equipments' => $equipments]);
 })->name('equipments.list');
@@ -93,7 +93,7 @@ Route::middleware(['auth', 'permission:manage_equipment'])->get('/equipment/{cam
     ])
     ->name('equipment.view');
 
-Route::middleware(['auth', 'permission:manage_equipment'])->get('/system-unit/{campus}/{department}/{room}/{equipment}', [SystemUnitController::class, 'showByPath'])
+Route::middleware(['auth'])->get('/system-unit/{campus}/{department}/{room}/{equipment}', [SystemUnitController::class, 'showByPath'])
 ->where([
     'campus' => '[a-zA-Z0-9\-]+',
     'department' => '[a-zA-Z0-9\-]+',
