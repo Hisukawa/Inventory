@@ -14,7 +14,11 @@ import {
     SidebarTrigger,
 } from "@/components/ui/sidebar";
 
-export default function RoomEquipmentList({ room, equipments }) {
+export default function RoomEquipmentList({
+    room,
+    equipments,
+    system_units = [],
+}) {
     const [showModal, setShowModal] = useState(false);
     const [modalData, setModalData] = useState({ url: "", label: "" });
 
@@ -36,6 +40,21 @@ export default function RoomEquipmentList({ room, equipments }) {
         setModalData({ url: "", label: "" });
         setCopied(false);
     };
+
+    const statusStyles = {
+        functional: "bg-green-500",
+        intact: "bg-green-500",
+        "under maintenance": "bg-yellow-400",
+        worn: "bg-yellow-400",
+        defective: "bg-red-500",
+        damaged: "bg-red-500",
+        "for replacement": "bg-orange-500",
+        "needs replacement": "bg-orange-500",
+        missing: "bg-rose-400",
+        spare: "bg-gray-400",
+    };
+
+    const allEquipments = [...equipments, ...system_units];
 
     return (
         <SidebarProvider>
@@ -65,53 +84,74 @@ export default function RoomEquipmentList({ room, equipments }) {
                         Equipments in {room.room_name}
                     </h1>
 
-                    {equipments.length === 0 ? (
+                    {allEquipments.length === 0 ? (
                         <p className="text-gray-600">
                             No equipment found in this room.
                         </p>
                     ) : (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {equipments.map((equipment) => (
-                                <div
-                                    key={equipment.id}
-                                    className="bg-white p-4 border rounded shadow text-center"
-                                >
-                                    <h2 className="text-lg font-semibold mb-2">
-                                        {equipment.equipment_name}
-                                    </h2>
-                                    {console.log(
-                                        `${window.location.origin}/equipment/${equipment.equipment_path}`
-                                    )}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
+                            {allEquipments.map((equipment) => {
+                                const statusKey =
+                                    equipment.status?.toLowerCase() ||
+                                    "unknown";
+
+                                return (
                                     <div
-                                        className="flex justify-center cursor-pointer mb-2"
-                                        onClick={() =>
-                                            openQrModal(
-                                                `${window.location.origin}/equipment/${equipment.equipment_path}`,
-                                                equipment.equipment_name
-                                            )
-                                        }
-                                        title="Click to enlarge"
+                                        key={equipment.id}
+                                        className="bg-white p-6 border rounded shadow text-left min-w-[200px] min-h-[250px] flex flex-col justify-between"
                                     >
-                                        <QRCode
-                                            value={`${window.location.origin}/equipment/${equipment.equipment_path}`}
-                                            size={150}
-                                        />
+                                        <div>
+                                            <h2 className="text-lg font-bold mb-3">
+                                                {equipment.equipment_name}
+                                            </h2>
+
+                                            <p className="text-base text-gray-700 mb-2">
+                                                <span className="font-semibold">
+                                                    Type:
+                                                </span>{" "}
+                                                {equipment.type || "N/A"}
+                                            </p>
+
+                                            <p className="text-base text-gray-700 mb-2">
+                                                <span className="font-semibold">
+                                                    Room:
+                                                </span>{" "}
+                                                {equipment.room?.room_name ||
+                                                    room.room_name ||
+                                                    "N/A"}
+                                            </p>
+
+                                            <div className="mt-2 mb-3">
+                                                <span className="font-semibold text-base">
+                                                    Status:{" "}
+                                                </span>
+                                                <span
+                                                    className={`inline-block text-white px-3 py-1 mt-1 rounded-full text-sm ${
+                                                        statusStyles[
+                                                            statusKey
+                                                        ] || "bg-gray-300"
+                                                    }`}
+                                                >
+                                                    {equipment.status ||
+                                                        "Unknown"}
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div className="text-center mt-4">
+                                            <a
+                                                href={`/system-unit/${equipment.equipment_path}`}
+                                                className="inline-block px-4 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 transition"
+                                            >
+                                                View
+                                            </a>
+                                        </div>
                                     </div>
-                                    <p className="mt-2 text-sm text-gray-600 break-all">
-                                        {equipment.equipment_path}
-                                    </p>
-                                    <a
-                                        href={`/equipment/${equipment.equipment_path}`}
-                                        className="inline-block mt-3 px-4 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 transition"
-                                    >
-                                        View
-                                    </a>
-                                </div>
-                            ))}
+                                );
+                            })}
                         </div>
                     )}
 
-                    {/* ✅ Modal from RoomList with copy */}
                     {showModal && (
                         <div
                             className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50"

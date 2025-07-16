@@ -1,7 +1,11 @@
 import React, { useState, useRef } from "react";
 import QRCode from "react-qr-code";
-
 import { AppSidebar } from "@/components/app-sidebar";
+import {
+    SidebarInset,
+    SidebarProvider,
+    SidebarTrigger,
+} from "@/components/ui/sidebar";
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -9,29 +13,23 @@ import {
     BreadcrumbList,
 } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
-import {
-    SidebarInset,
-    SidebarProvider,
-    SidebarTrigger,
-} from "@/components/ui/sidebar";
 
-export default function EquipmentView({ equipment }) {
+export default function ViewSystemUnit({ system_unit }) {
     const [showModal, setShowModal] = useState(false);
     const [copied, setCopied] = useState(false);
     const qrRef = useRef(null);
+
+    const qrUrl = `${window.location.origin}/system-unit/${system_unit.equipment_path}`;
 
     const openModal = () => {
         setShowModal(true);
         setCopied(false);
     };
 
-    const closeModal = () => {
-        setShowModal(false);
-    };
+    const closeModal = () => setShowModal(false);
 
     const handleCopy = () => {
-        const fullUrl = `${window.location.origin}/equipment/${equipment.qr_code}`;
-        navigator.clipboard.writeText(fullUrl).then(() => {
+        navigator.clipboard.writeText(qrUrl).then(() => {
             setCopied(true);
             setTimeout(() => setCopied(false), 2000);
         });
@@ -53,15 +51,13 @@ export default function EquipmentView({ equipment }) {
 
             const pngFile = canvas.toDataURL("image/png");
             const link = document.createElement("a");
-            link.download = `${equipment.equipment_name}-qr.png`;
+            link.download = `${system_unit.equipment_name}-qr.png`;
             link.href = pngFile;
             link.click();
         };
 
         img.src = `data:image/svg+xml;base64,${btoa(svgString)}`;
     };
-
-    const { specifications = {}, room } = equipment;
 
     return (
         <SidebarProvider>
@@ -73,13 +69,14 @@ export default function EquipmentView({ equipment }) {
                     <Breadcrumb>
                         <BreadcrumbList>
                             <BreadcrumbItem>
-                                <BreadcrumbLink href="/admin/equipments/list">
-                                    Equipment List
+                                <BreadcrumbLink href="/admin/rooms/list">
+                                    Room List
                                 </BreadcrumbLink>
                             </BreadcrumbItem>
                             <BreadcrumbItem>
                                 <BreadcrumbLink href="#">
-                                    {equipment.equipment_name}
+                                    {system_unit?.equipment_name ||
+                                        "System Unit"}
                                 </BreadcrumbLink>
                             </BreadcrumbItem>
                         </BreadcrumbList>
@@ -89,43 +86,34 @@ export default function EquipmentView({ equipment }) {
                 <main className="p-6">
                     <div className="max-w-xl mx-auto p-6 bg-white rounded shadow">
                         <h1 className="text-2xl font-bold mb-6 text-center">
-                            Equipment Details
+                            System Unit Details
                         </h1>
 
-                        <div className="grid grid-cols-1 gap-4 text-sm">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                             <Info
                                 label="Equipment Name"
-                                value={equipment.equipment_name}
+                                value={system_unit.equipment_name}
                             />
                             <Info
                                 label="Room"
-                                value={room?.room_name || "Unknown"}
+                                value={system_unit.room?.room_name || "Unknown"}
                             />
-                            <Info
-                                label="Equipment ID / QR Path"
-                                value={equipment.qr_code}
-                            />
-                            <Info label="Brand" value={specifications.brand} />
+                            <Info label="Brand" value={system_unit.brand} />
                             <Info
                                 label="Processor"
-                                value={specifications.processor}
+                                value={system_unit.processor}
                             />
-                            <Info label="RAM" value={specifications.ram} />
-                            <Info
-                                label="Storage"
-                                value={specifications.storage}
-                            />
+                            <Info label="RAM" value={system_unit.ram} />
+                            <Info label="Storage" value={system_unit.storage} />
                             <Info
                                 label="Operating System"
-                                value={specifications.os}
+                                value={system_unit.os}
                             />
-                            <Info
-                                label="Status"
-                                value={equipment.status || "Active"}
-                            />
+                            <Info label="Status" value={system_unit.status} />
                         </div>
 
-                        {equipment.qr_code && (
+                        {/* QR Section */}
+                        {system_unit.equipment_path && (
                             <div className="mt-8 max-w-xs mx-auto">
                                 <div
                                     className="bg-white border rounded-lg shadow hover:shadow-lg transition p-4 cursor-pointer text-center"
@@ -136,10 +124,7 @@ export default function EquipmentView({ equipment }) {
                                         View QR Code
                                     </h2>
                                     <div className="flex justify-center">
-                                        <QRCode
-                                            value={`${window.location.origin}/equipment/${equipment.qr_code}`}
-                                            size={150}
-                                        />
+                                        <QRCode value={qrUrl} size={150} />
                                     </div>
                                     <p className="text-sm text-gray-500 mt-4">
                                         Click the QR code to enlarge and copy
@@ -161,7 +146,7 @@ export default function EquipmentView({ equipment }) {
                             onClick={(e) => e.stopPropagation()}
                         >
                             <h2 className="text-lg font-bold mb-4 text-center">
-                                {equipment.equipment_name}
+                                {system_unit.equipment_name}
                             </h2>
 
                             <div
@@ -170,20 +155,12 @@ export default function EquipmentView({ equipment }) {
                                 title="Click to copy full URL"
                             >
                                 <div ref={qrRef}>
-                                    <QRCode
-                                        value={`${window.location.origin}/equipment/${equipment.qr_code}`}
-                                        size={300}
-                                    />
+                                    <QRCode value={qrUrl} size={300} />
                                 </div>
                             </div>
 
-                            {/* <p className="mt-2 text-sm text-gray-600 break-all text-center">
-                                {`${window.location.origin}/equipment/${equipment.qr_code}`}
-                            </p> */}
-
                             <p className="mt-2 text-sm text-gray-600 break-all text-center">
-                                {" "}
-                                Click QR Code to copy the Link.
+                                Click QR Code to copy the link.
                             </p>
 
                             {copied && (
@@ -208,7 +185,6 @@ export default function EquipmentView({ equipment }) {
     );
 }
 
-// ✅ Reusable Info Block
 const Info = ({ label, value }) => (
     <div>
         <span className="font-semibold text-gray-700">{label}:</span>

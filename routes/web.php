@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Admin\EquipmentController;
 use App\Http\Controllers\Admin\RoomEquipmentController;
+use App\Http\Controllers\Admin\SystemUnitController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -44,9 +45,6 @@ Route::middleware(['auth'])->group(function () {
 // ======================
 // ROOMS
 // ======================
-
-
-// ============================================= ADMIN ====================================================
 Route::middleware(['auth', 'permission:manage_rooms'])->get('/admin/rooms/create', fn () =>
     Inertia::render('Admin/RoomForm'))->name('rooms.create');
 
@@ -66,25 +64,9 @@ Route::get('/{qr_code}', function ($qr_code) {
     return Inertia::render('RoomPublicView', ['room' => $room]);
 })->where('qr_code', 'isu-ilagan_ict-department_room-[0-9]+');
 
-
-
-// ============================================= FACULTY ====================================================
-
-
-
-// ============================================= TECHNICIAN ====================================================
-
-
-
-// ============================================= GUEST ====================================================
-
-
-
 // ======================
 // EQUIPMENTS
 // ======================
-
-// ============================================= ADMIN ====================================================
 Route::middleware(['auth', 'permission:manage_equipment'])->get('/admin/equipments/create', function () {
     $rooms = \App\Models\Room::select('room_number')->get();
     return Inertia::render('Admin/EquipmentForm', ['rooms' => $rooms]);
@@ -111,23 +93,25 @@ Route::middleware(['auth', 'permission:manage_equipment'])->get('/equipment/{cam
     ])
     ->name('equipment.view');
 
+Route::middleware(['auth', 'permission:manage_equipment'])->get('/system-unit/{campus}/{department}/{room}/{equipment}', [SystemUnitController::class, 'showByPath'])
+->where([
+    'campus' => '[a-zA-Z0-9\-]+',
+    'department' => '[a-zA-Z0-9\-]+',
+    'room' => '[a-zA-Z0-9\-]+',
+    'equipment' => '[a-zA-Z0-9\-]+',
+])
+->name('system-unit.view');
 
-// ============================================= FACULTY ====================================================
 
 
-
-// ============================================= TECHNICIAN ====================================================
-
-
-
-// ============================================= GUEST ====================================================
-
+// ======================
+// SYSTEM UNITS
+// ======================
+Route::middleware(['auth', 'permission:manage_equipment'])->post('/admin/system-units', [SystemUnitController::class, 'store'])->name('system-units.store');
 
 // ======================
 // USERS CRUD
 // ======================
-
-// ============================================= ADMIN ====================================================
 Route::middleware(['auth', 'permission:manage_users'])->prefix('admin')->group(function () {
     Route::get('/users', [UserController::class, 'index'])->name('users.list');
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
@@ -136,19 +120,5 @@ Route::middleware(['auth', 'permission:manage_users'])->prefix('admin')->group(f
     Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
     Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 });
-
-
-
-// ============================================= FACULTY ====================================================
-
-
-
-// ============================================= TECHNICIAN ====================================================
-
-
-
-// ============================================= GUEST ====================================================
-
-
 
 require __DIR__.'/auth.php';

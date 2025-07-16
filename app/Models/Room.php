@@ -13,4 +13,10 @@ class Room extends Model
     {
         return $this->hasMany(\App\Models\Equipment::class);
     }
+
+    public function systemUnits()
+    {
+        return $this->hasMany(SystemUnit::class);
+    }
+
 }

@@ -15,27 +15,46 @@ class EquipmentController extends Controller
         $request->validate([
             'equipment_name' => 'required|string|max:255',
             'room_id' => 'required|exists:rooms,id',
+            'category' => 'nullable|string',
+            'type' => 'nullable|string',
+            'status' => 'nullable|string',
+            'brand' => 'nullable|string',
+            'processor' => 'nullable|string',
+            'ram' => 'nullable|string',
+            'storage' => 'nullable|string',
+            'os' => 'nullable|string',
+            'furniture_type' => 'nullable|string',
+            'material' => 'nullable|string',
+            'color' => 'nullable|string',
+            'dimensions' => 'nullable|string',
+            'condition' => 'nullable|string',
         ]);
 
         try {
             $room = Room::findOrFail($request->room_id);
 
-            $equipmentName = strtolower(trim($request->equipment_name)); // e.g. pc-01
-
-            // ✅ FIX: Ensure qr_code uses slashes not underscores
-            $roomPath = str_replace('_', '/', $room->qr_code); // convert _ to /
+            $equipmentName = strtolower(trim($request->equipment_name));
+            $roomPath = str_replace('_', '/', $room->qr_code);
             $fullPath = $roomPath . '/' . $equipmentName;
 
             Equipment::create([
                 'equipment_name' => strtoupper(trim($request->equipment_name)),
                 'room_id' => $room->id,
                 'equipment_path' => $fullPath,
+                'category' => $request->category,
+                'type' => $request->type,
+                'status' => $request->status,
                 'specifications' => [
                     'brand' => $request->brand,
                     'processor' => $request->processor,
                     'ram' => $request->ram,
                     'storage' => $request->storage,
                     'os' => $request->os,
+                    'furniture_type' => $request->furniture_type,
+                    'material' => $request->material,
+                    'color' => $request->color,
+                    'dimensions' => $request->dimensions,
+                    'condition' => $request->condition,
                 ],
             ]);
 
@@ -62,6 +81,9 @@ class EquipmentController extends Controller
                 'room' => $equipment->room,
                 'room_id' => $equipment->room_id,
                 'equipment_path' => $equipment->equipment_path,
+                'category' => $equipment->category,
+                'type' => $equipment->type,
+                'status' => $equipment->status,
                 'specifications' => $equipment->specifications ?? [],
             ],
             'rooms' => Room::all()
@@ -73,26 +95,35 @@ class EquipmentController extends Controller
         $request->validate([
             'equipment_name' => 'required|string|max:255',
             'room_id' => 'required|exists:rooms,id',
+            'category' => 'nullable|string',
+            'type' => 'nullable|string',
+            'status' => 'nullable|string',
         ]);
 
         $equipment = Equipment::findOrFail($id);
         $room = Room::findOrFail($request->room_id);
 
         $formattedName = strtolower(trim($request->equipment_name));
-
-        // ✅ FIX: Replace _ with / from the room's stored qr_code
         $newPath = str_replace('_', '/', $room->qr_code) . '/' . $formattedName;
 
         $equipment->update([
             'equipment_name' => strtoupper(trim($request->equipment_name)),
             'room_id' => $room->id,
             'equipment_path' => $newPath,
+            'category' => $request->category,
+            'type' => $request->type,
+            'status' => $request->status,
             'specifications' => [
                 'brand' => $request->brand,
                 'processor' => $request->processor,
                 'ram' => $request->ram,
                 'storage' => $request->storage,
                 'os' => $request->os,
+                'furniture_type' => $request->furniture_type,
+                'material' => $request->material,
+                'color' => $request->color,
+                'dimensions' => $request->dimensions,
+                'condition' => $request->condition,
             ],
         ]);
 
@@ -121,11 +152,19 @@ class EquipmentController extends Controller
                 'equipment_path' => $equipment->equipment_path,
                 'qr_code' => $equipment->equipment_path,
                 'room' => $equipment->room,
+                'category' => $equipment->category,
+                'type' => $equipment->type,
+                'status' => $equipment->status,
                 'brand' => $equipment->specifications['brand'] ?? null,
                 'processor' => $equipment->specifications['processor'] ?? null,
                 'ram' => $equipment->specifications['ram'] ?? null,
                 'storage' => $equipment->specifications['storage'] ?? null,
                 'os' => $equipment->specifications['os'] ?? null,
+                'furniture_type' => $equipment->specifications['furniture_type'] ?? null,
+                'material' => $equipment->specifications['material'] ?? null,
+                'color' => $equipment->specifications['color'] ?? null,
+                'dimensions' => $equipment->specifications['dimensions'] ?? null,
+                'condition' => $equipment->specifications['condition'] ?? null,
             ],
         ]);
     }
