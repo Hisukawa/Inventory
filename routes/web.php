@@ -74,7 +74,7 @@ Route::middleware(['auth', 'permission:manage_equipment'])->get('/admin/equipmen
 
 Route::middleware(['auth', 'permission:manage_equipment'])->post('/admin/equipments', [EquipmentController::class, 'store'])->name('equipments.store');
 
-Route::middleware(['auth', 'permission:manage_equipment'])->get('/admin/equipments/list', function () {
+Route::middleware(['auth'])->get('/admin/equipments/list', function () {
     $equipments = \App\Models\Equipment::all();
     return Inertia::render('Admin/EquipmentList', ['equipments' => $equipments]);
 })->name('equipments.list');
