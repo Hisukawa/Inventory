@@ -70,7 +70,7 @@ export default function ViewSystemUnit({ system_unit }) {
                         <BreadcrumbList>
                             <BreadcrumbItem>
                                 <BreadcrumbLink href="/admin/rooms/list">
-                                    Room List
+                                    Rooms List
                                 </BreadcrumbLink>
                             </BreadcrumbItem>
                             <BreadcrumbItem>
