@@ -1,0 +1,1 @@
+import{J as e,r as t,S as o}from"./app-DsyZhXOB.js";import{S as s}from"./sweetalert2.esm.all-BQIkj5Wb.js";function c(){const{errorMessage:r}=e().props;return t.useEffect(()=>{s.fire({icon:"error",title:"Access Denied",text:r||"You are not authorized to access this page."}).then(()=>{o.visit("/")})},[]),null}export{c as default};
